@@ -3,7 +3,7 @@ package info.pauek.moviesearch;
 public class Movie {
 
     private String Title, Year, Rated, Runtime,
-            Genre, Director, Writer, Actors, Plot; // S'han de dir igual que al json (majúscules incloses)
+            Genre, Director, Writer, Actors, Plot, Poster; // S'han de dir igual que al json (majúscules incloses)
 
     public String getTitle() {
         return Title;
@@ -39,5 +39,9 @@ public class Movie {
 
     public String getPlot() {
         return Plot;
+    }
+
+    public String getPoster() {
+        return Poster;
     }
 }

@@ -60,17 +60,23 @@ public class MovieActivity extends AppCompatActivity {
         posterView = findViewById(R.id.posterview);
 
         // URL: i=blabla (paràmetre 1) & i=blabla (paràmetre 2)
-        StringRequest request = new StringRequest(Request.Method.GET, "http://www.omdbapi.com/?i=tt3896198&apikey=b746a0d5", new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.GET, "http://www.omdbapi.com/?i=tt3896198&apikey=b746a0d5",
+                new Response.Listener<String>() { // Objecte 1
 
             // Classe que hereda de Response.Listener
-            @Override
+            @Override // Sobrecarrega el mètode onResponse, que ja existia
             public void onResponse(String response) {
 
                 // La resposta de la web és un json
                 movie = gson.fromJson(response, Movie.class);
                 updateMovie();
+
+                // LLIBRERIA GLIDE: per carregar la imatge
+                Glide.with(MovieActivity.this) // Retorna un objecte
+                        .load(movie.getPoster()) // Crido load en l'objecte
+                        .into(posterView);
             }
-        }, new Response.ErrorListener() {
+        }, new Response.ErrorListener() { // Objecte 2
 
             // Classe que hereda de Response.ErrorListener
             @Override
@@ -81,11 +87,6 @@ public class MovieActivity extends AppCompatActivity {
         });
 
         queue.add(request);
-
-        // LLIBRERIA GLIDE: per carregar la imatge
-        Glide.with(this) // Retorna un objecte
-                .load("file:///android_asset/lord.jpg") // Crido load en l'objecte
-                .into(posterView);
     }
 
     private void updateMovie() {
